@@ -2,7 +2,7 @@ import sys
 import subprocess
 python = sys.executable
 subprocess.check_call([python, '-m', 'pip', 'install', 'requests'])
-#pip install geopandas
+pip install geopandas
 
 import geopandas as gpd
 
@@ -30,5 +30,6 @@ supports_avec_parcelles = supports_avec_parcelles[colonnes_a_garder]
 
 # Sauvegarder le résultat dans un nouveau shapefile
 supports_avec_parcelles.to_file(sortie_path)
+
 
 print("Jointure spatiale terminée. Résultat sauvegardé dans :", sortie_path)
