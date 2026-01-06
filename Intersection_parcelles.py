@@ -15,9 +15,9 @@ sortie_path = 'chemin/vers/supports_avec_parcelles.shp'
 supports = gpd.read_file(entree_croisement_parcelle)
 parcelles = gpd.read_file(parcelles_path)
 
-# Vérifier les systèmes de coordonnées (CRS) et les aligner si nécessaire ( voir si problemes de coordonnées reactiver)
-#if supports.crs != parcelles.crs:
-#    supports = supports.to_crs(parcelles.crs)
+ Vérifier les systèmes de coordonnées (CRS) et les aligner si nécessaire ( voir si problemes de coordonnées reactiver)
+if supports.crs != parcelles.crs:
+    supports = supports.to_crs(parcelles.crs)
 
 # Effectuer une jointure spatiale : chaque support récupère les attributs de la parcelle qu'il intersecte
 # Utilise 'left' pour garder tous les supports, même s'ils n'intersectent pas (mais normalement ils devraient)
@@ -33,3 +33,4 @@ supports_avec_parcelles.to_file(sortie_path)
 
 
 print("Jointure spatiale terminée. Résultat sauvegardé dans :", sortie_path)
+
