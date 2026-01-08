@@ -1,8 +1,22 @@
 import sys
 import subprocess
-python = sys.executable
-subprocess.check_call([python, '-m', 'pip', 'install', 'requests'])
-pip install geopandas
+
+#Installe la bibliothèque necessaire aux calculs d'interpolation
+def install_package(package_name):
+    """
+    Installs a Python package using pip from within a script.
+    """
+    try:
+        # Run pip as a subprocess
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+        print(f"✅ Successfully installed {package_name}")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Failed to install {package_name}: {e}")
+    except Exception as e:
+        print(f"⚠️ Unexpected error: {e}")
+
+if __name__ == "__main__":
+    install_package("geopandas")
 
 import geopandas as gpd
 
@@ -15,7 +29,7 @@ sortie_path = 'chemin/vers/supports_avec_parcelles.shp'
 supports = gpd.read_file(entree_croisement_parcelle)
 parcelles = gpd.read_file(parcelles_path)
 
- Vérifier les systèmes de coordonnées (CRS) et les aligner si nécessaire ( voir si problemes de coordonnées reactiver)
+# Vérifier les systèmes de coordonnées (CRS) et les aligner si nécessaire ( voir si problemes de coordonnées reactiver)
 if supports.crs != parcelles.crs:
     supports = supports.to_crs(parcelles.crs)
 
@@ -31,6 +45,4 @@ supports_avec_parcelles = supports_avec_parcelles[colonnes_a_garder]
 # Sauvegarder le résultat dans un nouveau shapefile
 supports_avec_parcelles.to_file(sortie_path)
 
-
 print("Jointure spatiale terminée. Résultat sauvegardé dans :", sortie_path)
-
